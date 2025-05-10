@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>THE DHH STORE</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+    (function(){
+      emailjs.init("PwO-ud3M2hHlrmfpp"); // Replace with your EmailJS user ID
+    })();
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #000;
+      color: #fff;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
+    .button-primary {
+      background-color: white;
+      color: black;
+      font-weight: 700;
+      padding: 0.75rem 2rem;
+      border-radius: 0.375rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .button-primary:hover {
+      background-color: #e5e5e5;
+    }
+    .profile-circle {
+      width: 40px;
+      height: 40px;
+      background-color: white;
+      color: black;
+      font-weight: 700;
+      font-size: 1.25rem;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    /* Responsive adjustments for mobile */
+    @media (max-width: 640px) {
+      body {
+        font-size: 14px;
+        padding: 1rem;
+      }
+      #initial-container #counter {
+        font-size: 5rem !important;
+      }
+      #initial-container #rap91 {
+        font-size: 2.5rem !important;
+      }
+      #initial-container #store-name {
+        font-size: 3.5rem !important;
+      }
+      .button-primary {
+        padding: 0.75rem 2rem;
+        font-size: 1rem;
+      }
+      #whatsup-container .text-5xl {
+        font-size: 2.5rem !important;
+      }
+      #user-form-container, #checkout-container, #product-detail-container, #catalogue-container, #shopping-categories-container, #profile-options-container {
+        padding: 1.5rem !important;
+        width: 95% !important;
+        max-width: 100% !important;
+        border-radius: 0.5rem !important;
+      }
+      #catalogue-items {
+        grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+      }
+      #product-images img {
+        width: 100% !important;
+        height: auto !important;
+        border-radius: 0.5rem !important;
+      }
+      #profile-info {
+        top: 60px !important;
+        right: 10px !important;
+        max-width: 90vw !important;
+        font-size: 1rem !important;
+        border-radius: 0.5rem !important;
+      }
+      #profile-circle {
+        width: 40px !important;
+        height: 40px !important;
+        font-size: 1.25rem !important;
+      }
+    }
+  </style>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen p-4 relative">
+
+  <!-- Initial Counter and Text Container -->
+  <div id="initial-container" class="flex flex-col items-center justify-center space-y-4">
+    <div id="counter" class="text-6xl font-semibold select-none">0</div>
+    <div id="rap91" class="text-4xl font-semibold opacity-0 select-none">RAP 91</div>
+    <div id="store-name" class="text-7xl font-bold opacity-0 select-none">THE DHH STORE</div>
+  </div>
+
+  <!-- Whatsup Moshpits Container -->
+  <div id="whatsup-container" class="hidden flex flex-col items-center justify-center space-y-6">
+    <div class="text-5xl font-bold select-none">whatsup Moshpits!</div>
+    <button id="are-you-in-button" class="button-primary">are you in</button>
+  </div>
+
+  <!-- User Form Container -->
+  <div id="user-form-container" class="hidden max-w-md w-full p-6 bg-black bg-opacity-80 rounded-md shadow-lg">
+    <h2 class="text-3xl font-bold mb-6 text-center">THE DHH STORE</h2>
+    <form id="user-form" class="flex flex-col space-y-4">
+      <input type="text" id="user-name" name="name" placeholder="Name" required class="p-3 rounded bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-white" />
+      <input type="email" id="user-email" name="email" placeholder="Email" required class="p-3 rounded bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-white" />
+      <button type="submit" class="button-primary">Confirm</button>
+    </form>
+  </div>
+
+  <!-- User Profile and Options Container -->
+  <div id="profile-options-container" class="hidden flex flex-col items-center space-y-8 max-w-4xl w-full">
+    <div class="fixed top-4 right-4">
+      <div id="profile-circle" class="profile-circle"></div>
+    </div>
+    <h2 class="text-4xl font-bold mb-4 text-center">THE DHH STORE</h2>
+    <div class="flex justify-center space-x-12">
+      <button id="listen-rap91-button" class="button-primary uppercase">listen to RAP 91</button>
+      <button id="start-shopping-button" class="button-primary uppercase">start shopping</button>
+    </div>
+  </div>
+
+  <!-- Shopping Categories Container -->
+  <div id="shopping-categories-container" class="hidden flex flex-col items-center space-y-8 max-w-4xl w-full">
+    <div class="fixed top-4 left-4">
+      <button id="view-cart-button" class="button-primary text-sm px-3 py-1">Cart (<span id="cart-count">0</span>)</button>
+    </div>
+    <h2 class="text-4xl font-bold mb-4 text-center">THE DHH STORE</h2>
+    <div class="flex justify-center space-x-12">
+      <button data-category="apparel" class="button-primary uppercase category-button">apparel</button>
+      <button data-category="jewellery" class="button-primary uppercase category-button">jewellery</button>
+      <button data-category="tickets" class="button-primary uppercase category-button">buy tickets</button>
+    </div>
+  </div>
+
+  <!-- Catalogue Container -->
+  <div id="catalogue-container" class="hidden max-w-4xl w-full">
+    <h2 class="text-4xl font-bold mb-4 text-center">THE DHH STORE</h2>
+    <button id="catalogue-back-button" class="mb-4 text-white font-bold text-lg hover:underline">&larr; Back</button>
+    <div id="catalogue-items" class="grid grid-cols-2 md:grid-cols-4 gap-6"></div>
+  </div>
+
+  <!-- Product Detail Container -->
+  <div id="product-detail-container" class="hidden max-w-4xl w-full p-6 bg-black bg-opacity-80 rounded-md shadow-lg">
+    <button id="product-detail-back-button" class="mb-4 text-white font-bold text-lg hover:underline">&larr; Back</button>
+    <h2 id="product-detail-name" class="text-3xl font-bold mb-4"></h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div id="product-images" class="flex space-x-4 overflow-x-auto"></div>
+      <div>
+        <p id="product-detail-description" class="mb-4"></p>
+        <p id="product-detail-price" class="text-xl font-bold mb-4"></p>
+        <label for="product-size" class="block mb-2 font-semibold">Size:</label>
+        <select id="product-size" class="p-2 rounded bg-gray-900 text-white mb-4 w-full max-w-xs">
+          <option value="S">S</option>
+          <option value="M" selected>M</option>
+          <option value="L">L</option>
+          <option value="XL">XL</option>
+        </select>
+        <button id="add-to-cart-button" class="button-primary w-full">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart Modal -->
+  <div id="cart-modal" class="fixed inset-0 bg-black bg-opacity-80 flex flex-col items-center justify-center p-6 hidden z-50">
+    <div class="bg-gray-900 rounded-md max-w-md w-full p-6 relative">
+      <button id="close-cart-button" class="absolute top-2 right-2 text-white text-xl font-bold">&times;</button>
+      <h2 class="text-2xl font-bold mb-4 text-white">Your Cart</h2>
+      <div id="cart-items" class="mb-4 max-h-64 overflow-y-auto text-white"></div>
+      <button id="checkout-button" class="button-primary w-full">Checkout</button>
+    </div>
+  </div>
+
+  <!-- Checkout Container -->
+  <div id="checkout-container" class="hidden max-w-md w-full p-6 bg-black bg-opacity-80 rounded-md shadow-lg">
+    <button id="checkout-back-button" class="mb-4 text-white font-bold text-lg hover:underline">&larr; Back</button>
+    <h2 class="text-3xl font-bold mb-6 text-center">Checkout</h2>
+    <form id="checkout-form" class="flex flex-col space-y-4">
+      <label class="font-semibold">Payment Method:</label>
+      <div class="flex space-x-4">
+        <label class="flex items-center space-x-2">
+          <input type="radio" name="payment-method" value="online" required />
+          <span>Online Payment</span>
+        </label>
+        <label class="flex items-center space-x-2">
+          <input type="radio" name="payment-method" value="cod" />
+          <span>Cash on Delivery (COD)</span>
+        </label>
+      </div>
+      <div id="online-payment-details" class="hidden flex flex-col space-y-4">
+        <input type="text" id="address" name="address" placeholder="Address" class="p-3 rounded bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-white" />
+        <input type="tel" id="contact-number" name="contact" placeholder="Contact Number" class="p-3 rounded bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-white" />
+      </div>
+      <button type="submit" class="button-primary">Place Order</button>
+    </form>
+  </div>
+
+  <script>
+    // Spotify album URL for RAP 91
+    const spotifyAlbumUrl = "https://open.spotify.com/playlist/37i9dQZF1DX1ct2TQrAvRf"; // Replace with actual album URL
+
+    // Sample product data for categories
+    const productData = {
+      apparel: [
+        {
+          id: "apparel1",
+          name: "Classic Hoodie",
+          price: "$45",
+          description: "Comfortable and stylish hoodie.",
+          images: [
+            "https://via.placeholder.com/300?text=Hoodie+1",
+            "https://via.placeholder.com/300?text=Hoodie+2",
+            "https://via.placeholder.com/300?text=Hoodie+3",
+            "https://via.placeholder.com/300?text=Hoodie+4"
+          ]
+        },
+        {
+          id: "apparel2",
+          name: "Graphic T-Shirt",
+          price: "$25",
+          description: "Cool graphic tee for everyday wear.",
+          images: [
+            "https://via.placeholder.com/300?text=T-Shirt+1",
+            "https://via.placeholder.com/300?text=T-Shirt+2",
+            "https://via.placeholder.com/300?text=T-Shirt+3",
+            "https://via.placeholder.com/300?text=T-Shirt+4"
+          ]
+        }
+      ],
+      jewellery: [
+        {
+          id: "jewellery1",
+          name: "Silver Necklace",
+          price: "$120",
+          description: "Elegant silver necklace.",
+          images: [
+            "https://via.placeholder.com/300?text=Necklace+1",
+            "https://via.placeholder.com/300?text=Necklace+2",
+            "https://via.placeholder.com/300?text=Necklace+3",
+            "https://via.placeholder.com/300?text=Necklace+4"
+          ]
+        },
+        {
+          id: "jewellery2",
+          name: "Gold Bracelet",
+          price: "$150",
+          description: "Stylish gold bracelet.",
+          images: [
+            "https://via.placeholder.com/300?text=Bracelet+1",
+            "https://via.placeholder.com/300?text=Bracelet+2",
+            "https://via.placeholder.com/300?text=Bracelet+3",
+            "https://via.placeholder.com/300?text=Bracelet+4"
+          ]
+        }
+      ],
+      tickets: [
+        {
+          id: "ticket1",
+          name: "Concert Ticket",
+          price: "$75",
+          description: "Entry ticket for RAP 91 concert.",
+          images: [
+            "https://via.placeholder.com/300?text=Ticket+1",
+            "https://via.placeholder.com/300?text=Ticket+2",
+            "https://via.placeholder.com/300?text=Ticket+3",
+            "https://via.placeholder.com/300?text=Ticket+4"
+          ]
+        }
+      ]
+    };
+
+    // State variables
+    let userData = null;
+    let cart = [];
+    let currentCategory = null;
+    let currentProduct = null;
+
+    // Elements
+    const initialContainer = document.getElementById("initial-container");
+    const counterEl = document.getElementById("counter");
+    const rap91El = document.getElementById("rap91");
+    const storeNameEl = document.getElementById("store-name");
+    const whatsupContainer = document.getElementById("whatsup-container");
+    const areYouInButton = document.getElementById("are-you-in-button");
+    const userFormContainer = document.getElementById("user-form-container");
+    const userForm = document.getElementById("user-form");
+    const profileOptionsContainer = document.getElementById("profile-options-container");
+    const profileCircle = document.getElementById("profile-circle");
+    const listenRap91Button = document.getElementById("listen-rap91-button");
+    const startShoppingButton = document.getElementById("start-shopping-button");
+    const shoppingCategoriesContainer = document.getElementById("shopping-categories-container");
+    const categoryButtons = document.querySelectorAll(".category-button");
+    const viewCartButton = document.getElementById("view-cart-button");
+    const cartCount = document.getElementById("cart-count");
+    const catalogueContainer = document.getElementById("catalogue-container");
+    const catalogueItems = document.getElementById("catalogue-items");
+    const catalogueBackButton = document.getElementById("catalogue-back-button");
+    const productDetailContainer = document.getElementById("product-detail-container");
+    const productDetailBackButton = document.getElementById("product-detail-back-button");
+    const productDetailName = document.getElementById("product-detail-name");
+    const productImages = document.getElementById("product-images");
+    const productDetailDescription = document.getElementById("product-detail-description");
+    const productDetailPrice = document.getElementById("product-detail-price");
+    const productSizeSelect = document.getElementById("product-size");
+    const addToCartButton = document.getElementById("add-to-cart-button");
+    const cartModal = document.getElementById("cart-modal");
+    const closeCartButton = document.getElementById("close-cart-button");
+    const cartItemsContainer = document.getElementById("cart-items");
+    const checkoutButton = document.getElementById("checkout-button");
+    const checkoutContainer = document.getElementById("checkout-container");
+    const checkoutBackButton = document.getElementById("checkout-back-button");
+    const checkoutForm = document.getElementById("checkout-form");
+    const onlinePaymentDetails = document.getElementById("online-payment-details");
+    const addressInput = document.getElementById("address");
+    const contactNumberInput = document.getElementById("contact-number");
+
+    // Initialize app
+    function init() {
+      loadUserData();
+      loadCart();
+      updateCartCount();
+      showInitialCounter();
+      setupEventListeners();
+      updateProfileUI();
+    }
+
+    // Show initial counter 0 to 91 then RAP 91 and THE DHH STORE, then after 2s show whatsup container
+    function showInitialCounter() {
+      initialContainer.classList.remove("hidden");
+      whatsupContainer.classList.add("hidden");
+      userFormContainer.classList.add("hidden");
+      profileOptionsContainer.classList.add("hidden");
+      shoppingCategoriesContainer.classList.add("hidden");
+      catalogueContainer.classList.add("hidden");
+      productDetailContainer.classList.add("hidden");
+      cartModal.classList.add("hidden");
+      checkoutContainer.classList.add("hidden");
+
+      let count = 0;
+      counterEl.textContent = count;
+      rap91El.style.opacity = 0;
+      storeNameEl.style.opacity = 0;
+
+      for (let i = 1; i <= 91; i++) {
+        setTimeout(() => {
+          counterEl.textContent = i;
+          if (i === 91) {
+            counterEl.textContent = "";
+            rap91El.style.opacity = 1;
+            storeNameEl.style.opacity = 1;
+            rap91El.textContent = "RAP 91";
+            storeNameEl.textContent = "THE DHH STORE";
+            // Wait 3 seconds before showing whatsup container (increased from 2s)
+            setTimeout(() => {
+              initialContainer.classList.add("hidden");
+              showWhatsupContainer();
+            }, 3000);
+          }
+        }, i * 150); // Slowed down from 100ms to 150ms per increment
+      }
+    }
+
+    // Show whatsup container with button
+    function showWhatsupContainer() {
+      whatsupContainer.classList.remove("hidden");
+      userFormContainer.classList.add("hidden");
+      profileOptionsContainer.classList.add("hidden");
+      shoppingCategoriesContainer.classList.add("hidden");
+      catalogueContainer.classList.add("hidden");
+      productDetailContainer.classList.add("hidden");
+      cartModal.classList.add("hidden");
+      checkoutContainer.classList.add("hidden");
+    }
+
+    // Show user form container
+    function showUserForm() {
+      userFormContainer.classList.remove("hidden");
+      whatsupContainer.classList.add("hidden");
+      profileOptionsContainer.classList.add("hidden");
+      shoppingCategoriesContainer.classList.add("hidden");
+      catalogueContainer.classList.add("hidden");
+      productDetailContainer.classList.add("hidden");
+      cartModal.classList.add("hidden");
+      checkoutContainer.classList.add("hidden");
+    }
+
+    // Show profile options container
+    function showProfileOptions() {
+      profileOptionsContainer.classList.remove("hidden");
+      userFormContainer.classList.add("hidden");
+      whatsupContainer.classList.add("hidden");
+      shoppingCategoriesContainer.classList.add("hidden");
+      catalogueContainer.classList.add("hidden");
+      productDetailContainer.classList.add("hidden");
+      cartModal.classList.add("hidden");
+      checkoutContainer.classList.add("hidden");
+    }
+
+    // Show shopping categories container
+    function showShoppingCategories() {
+      shoppingCategoriesContainer.classList.remove("hidden");
+      profileOptionsContainer.classList.add("hidden");
+      userFormContainer.classList.add("hidden");
+      whatsupContainer.classList.add("hidden");
+      catalogueContainer.classList.add("hidden");
+      productDetailContainer.classList.add("hidden");
+      cartModal.classList.add("hidden");
+      checkoutContainer.classList.add("hidden");
+    }
+
+    // Show catalogue container for selected category
+    function showCatalogue(category) {
+      currentCategory = category;
+      catalogueItems.innerHTML = "";
+      const products = productData[category] || [];
+      products.forEach((product) => {
+        const productEl = document.createElement("div");
+        productEl.className =
+          "bg-gray-800 p-4 rounded cursor-pointer hover:bg-gray-700 flex flex-col justify-between";
+        productEl.innerHTML = `
+          <img src="${product.images[0]}" alt="${product.name}" class="mb-2 rounded" />
+          <div class="font-bold text-lg mb-2">${product.name}</div>
+          <div class="text-white mb-4">${product.price}</div>
+        `;
+        productEl.addEventListener("click", () => {
+          showProductDetail(product);
+        });
+        catalogueItems.appendChild(productEl);
+      });
+      catalogueContainer.classList.remove("hidden");
+      shoppingCategoriesContainer.classList.add("hidden");
+      profileOptionsContainer.classList.add("hidden");
+      userFormContainer.classList.add("hidden");
+      whatsupContainer.classList.add("hidden");
+      productDetailContainer.classList.add("hidden");
+      cartModal.classList.add("hidden");
+      checkoutContainer.classList.add("hidden");
+    }
+
+    // Show product detail container
+    function showProductDetail(product) {
+      currentProduct = product;
+      productDetailName.textContent = product.name;
+      productDetailDescription.textContent = product.description;
+      productDetailPrice.textContent = product.price;
+      productSizeSelect.value = "M";
+      productImages.innerHTML = "";
+      product.images.forEach((imgUrl) => {
+        const imgEl = document.createElement("img");
+        imgEl.src = imgUrl;
+        imgEl.alt = product.name;
+        imgEl.className = "w-24 h-24 object-cover rounded";
+        productImages.appendChild(imgEl);
+      });
+      productDetailContainer.classList.remove("hidden");
+      catalogueContainer.classList.add("hidden");
+      shoppingCategoriesContainer.classList.add("hidden");
+      profileOptionsContainer.classList.add("hidden");
+      userFormContainer.classList.add("hidden");
+      whatsupContainer.classList.add("hidden");
+      cartModal.classList.add("hidden");
+      checkoutContainer.classList.add("hidden");
+    }
+
+    // Show cart modal
+    function showCartModal() {
+      cartItemsContainer.innerHTML = "";
+      if (cart.length === 0) {
+        cartItemsContainer.innerHTML = "<p>Your cart is empty.</p>";
+      } else {
+        cart.forEach((item, index) => {
+          const itemEl = document.createElement("div");
+          itemEl.className = "flex justify-between items-center mb-2 text-white";
+          itemEl.innerHTML = `
+            <span>${item.name} (${item.size}) - ${item.price}</span>
+            <button class="text-red-500 font-bold remove-cart-item" data-index="${index}">&times;</button>
+          `;
+          cartItemsContainer.appendChild(itemEl);
+        });
+        // Add event listeners for remove buttons
+        const removeButtons = cartItemsContainer.querySelectorAll(".remove-cart-item");
+        removeButtons.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const idx = parseInt(btn.getAttribute("data-index"));
+            removeFromCart(idx);
+          });
+        });
+      }
+      cartModal.classList.remove("hidden");
+    }
+
+    // Hide cart modal
+    function hideCartModal() {
+      cartModal.classList.add("hidden");
+    }
+
+    // Add item to cart
+    function addToCart() {
+      if (!currentProduct) return;
+      const size = productSizeSelect.value;
+      const item = {
+        id: currentProduct.id,
+        name: currentProduct.name,
+        price: currentProduct.price,
+        size: size,
+      };
+      cart.push(item);
+      saveCart();
+      updateCartCount();
+      alert(`Added ${item.name} (${item.size}) to cart.`);
+    }
+
+    // Remove item from cart by index
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      saveCart();
+      updateCartCount();
+      showCartModal();
+    }
+
+    // Save cart to localStorage
+    function saveCart() {
+      localStorage.setItem("dhhCart", JSON.stringify(cart));
+    }
+
+    // Load cart from localStorage
+    function loadCart() {
+      const data = localStorage.getItem("dhhCart");
+      if (data) {
+        cart = JSON.parse(data);
+      } else {
+        cart = [];
+      }
+    }
+
+    // Update cart count display
+    function updateCartCount() {
+      cartCount.textContent = cart.length;
+    }
+
+    // Save user data to localStorage
+    function saveUserData() {
+      localStorage.setItem("dhhUserData", JSON.stringify(userData));
+    }
+
+    // Load user data from localStorage
+    function loadUserData() {
+      const data = localStorage.getItem("dhhUserData");
+      if (data) {
+        userData = JSON.parse(data);
+      } else {
+        userData = null;
+      }
+    }
+
+    // Update profile UI
+    function updateProfileUI() {
+      if (userData) {
+        profileCircle.textContent = userData.name.charAt(0).toUpperCase();
+        profileCircle.classList.remove("hidden");
+      } else {
+        profileCircle.classList.add("hidden");
+      }
+    }
+
+      // Toggle profile info display on profile circle click
+      function toggleProfileInfo() {
+        let profileInfoEl = document.getElementById("profile-info");
+        if (!profileInfoEl) {
+          profileInfoEl = document.createElement("div");
+          profileInfoEl.id = "profile-info";
+          profileInfoEl.className = "fixed top-16 right-4 bg-gray-900 bg-opacity-90 p-4 rounded-md text-white text-sm space-y-1 max-w-xs";
+          document.body.appendChild(profileInfoEl);
+        }
+        if (profileInfoEl.style.display === "block") {
+          profileInfoEl.style.display = "none";
+        } else {
+          if (userData) {
+            profileInfoEl.innerHTML = `
+              <div class="font-bold">${userData.name}</div>
+              <div class="truncate">${userData.email}</div>
+            `;
+            profileInfoEl.style.display = "block";
+          }
+        }
+      }
+
+    // Setup event listeners
+    function setupEventListeners() {
+      areYouInButton.addEventListener("click", () => {
+        showUserForm();
+      });
+
+      userForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const name = userForm["name"].value.trim();
+        const email = userForm["email"].value.trim();
+        if (!name || !email) {
+          alert("Please fill in all fields.");
+          return;
+        }
+        userData = { name, email };
+        saveUserData();
+        updateProfileUI();
+        showProfileOptions();
+      });
+
+      profileCircle.addEventListener("click", () => {
+        toggleProfileInfo();
+      });
+
+      listenRap91Button.addEventListener("click", () => {
+        window.open(spotifyAlbumUrl, "_blank");
+      });
+
+      startShoppingButton.addEventListener("click", () => {
+        showShoppingCategories();
+      });
+
+      categoryButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const category = btn.getAttribute("data-category");
+          showCatalogue(category);
+        });
+      });
+
+      catalogueBackButton.addEventListener("click", () => {
+        showShoppingCategories();
+      });
+
+      productDetailBackButton.addEventListener("click", () => {
+        showCatalogue(currentCategory);
+      });
+
+      addToCartButton.addEventListener("click", () => {
+        addToCart();
+      });
+
+      viewCartButton.addEventListener("click", () => {
+        showCartModal();
+      });
+
+      closeCartButton.addEventListener("click", () => {
+        hideCartModal();
+      });
+
+      checkoutButton.addEventListener("click", () => {
+        if (cart.length === 0) {
+          alert("Your cart is empty. Please add items before checkout.");
+          return;
+        }
+        hideCartModal();
+        showCheckout();
+      });
+
+      checkoutBackButton.addEventListener("click", () => {
+        showCartModal();
+        checkoutContainer.classList.add("hidden");
+      });
+
+      checkoutForm.addEventListener("change", (e) => {
+        if (e.target.name === "payment-method") {
+          // Show address and contact inputs for both online and COD payment methods
+          if (e.target.value === "online" || e.target.value === "cod") {
+            onlinePaymentDetails.classList.remove("hidden");
+            addressInput.required = true;
+            contactNumberInput.required = true;
+          } else {
+            onlinePaymentDetails.classList.add("hidden");
+            addressInput.required = false;
+            contactNumberInput.required = false;
+          }
+        }
+      });
+
+      checkoutForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        placeOrder();
+      });
+    }
+
+    // Show checkout container
+    function showCheckout() {
+      checkoutContainer.classList.remove("hidden");
+      cartModal.classList.add("hidden");
+    }
+
+      // Place order and send emails using EmailJS
+      function placeOrder() {
+        const paymentMethod = checkoutForm["payment-method"].value;
+        const address = checkoutForm["address"].value.trim();
+        const contact = checkoutForm["contact"].value.trim();
+
+        if ((paymentMethod === "online" || paymentMethod === "cod") && (!address || !contact)) {
+          alert("Please fill in address and contact number for the selected payment method.");
+          return;
+        }
+
+        // Prepare order details
+        const orderDetails = `
+          Name: ${userData.name}
+          Email: ${userData.email}
+          Payment Method: ${paymentMethod === "online" ? "Online Payment" : "Cash on Delivery"}
+          Address: ${address}
+          Contact Number: ${contact}
+          Items:
+          ${cart.map((item) => `- ${item.name} (${item.size}) - ${item.price}`).join("\n")}
+        `;
+
+        // Send email to developer and user simultaneously
+        const sendToDeveloper = emailjs.send("service_zmnubry", "template_rqkukx7", {
+          to_email: "singh80harshit@gmail.com",
+          from_name: userData.name,
+          from_email: userData.email,
+          message: orderDetails,
+        });
+
+        const sendToUser = emailjs.send("service_zmnubry", "template_61mh09u", {
+          to_email: userData.email,
+          from_name: "THE DHH STORE",
+          message: `Thank you for your order!\n\n${orderDetails}`,
+        });
+
+        Promise.all([sendToDeveloper, sendToUser])
+          .then(() => {
+            alert("Order placed successfully! Confirmation emails sent.");
+            cart = [];
+            saveCart();
+            updateCartCount();
+            checkoutContainer.classList.add("hidden");
+            showProfileOptions();
+
+            // Redirect user to payment gateway if online payment
+            if (paymentMethod === "online") {
+              window.open("https://example-payment-gateway.com/checkout", "_blank");
+            }
+          })
+          .catch((error) => {
+            alert("Failed to send confirmation emails. Please try again.");
+            console.error(error);
+          });
+      }
+
+    // Load app
+    init();
+  </script>
+</body>
+</html>
